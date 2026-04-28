@@ -8,12 +8,12 @@ class Categoria(Base):
 
     id = Column(Integer, primary_key=True)
     nome = Column(String(100), nullable=False)
-    descicao = Column(String(200))
+    descricao = Column(String(200))
 
-    produtos = relationship("Produto", back_populates="Categoria")
+    produtos = relationship("Produto", back_populates="categoria")
     
     def __repr__(self):
-        return f"Produto: ID = {self.id} | Nome: {self.nome} | Descição: {self.descicao}"
+        return f"Produto: ID = {self.id} | Nome: {self.nome} | Descrição: {self.descricao}"
     
 class Produto(Base):
     __tablename__ = "produtos"
