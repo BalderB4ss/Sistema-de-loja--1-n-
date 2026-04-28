@@ -20,3 +20,27 @@ def criar_categoria(
     db.commit()
 
     return RedirectResponse(url="/categorias", status_code=303)
+
+@app.post("/produtos")
+def criar_produto(
+    nome: str = Form(...),
+    preco: float = Form(...),
+    estoque: int = Form(...),
+
+    categoria_id: int = Form(...),
+    db: Session = Depends(get_db)):
+
+    categoria = db.query(Categoria).filter(Categoria.id == categoria_id).first()
+    if categoria == None:
+        return "Erro!"
+    else:
+
+        novo_produto = Produto(nome=nome, preco=preco, estoque=estoque, categoria_id=categoria_id)
+        db.add(novo_produto)
+        db.commit()
+
+        return RedirectResponse(url="/produtos", status_code=303)
+    
+
+
+        
