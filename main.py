@@ -41,6 +41,15 @@ def criar_produto(
 
         return RedirectResponse(url="/produtos", status_code=303)
     
+@app.get("/listar_categoria")
+def listar_categoria(
+    request: Request,
+    db: Session = Depends(get_db)
+    ):
 
-
-        
+    categorias = db.query(Categoria).all()
+    return templates.TemplateResponse(
+        request,
+        "categorias.html",
+        {"request": request, "cursos": categorias}
+    )
